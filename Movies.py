@@ -1,4 +1,3 @@
-import pickle
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -17,16 +16,23 @@ def url_alc_imdb(url):
     alc_cont = req.split(' ').pop(1)
     if(alc_cont == 'Be'):
         alc_cont = 'Unrated'
+    
     #print(alc_cont)
     return alc_cont
     #return text
 
+def unique(url):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in url if not (x in seen or seen_add(x))]
+
+#unique(all_movie_links)
 
 def get_URL_list(url):
     response = requests.get(url).text
     soup = BeautifulSoup(response, 'lxml')
     text = [link.get('href') for link in soup.find_all('a', 
-                          attrs={'href': re.compile("^\/title\/[t]{2}[0-9]{7}\/$")})]
+                          attrs={'href': re.compile("^\/title\/[t]{2}[0-9]{4,10}\/$")})]
     preURL = 'https://www.imdb.com'
     postURL = 'parentalguide'
     url_list = []
@@ -34,7 +40,9 @@ def get_URL_list(url):
     for x in text:
         x = preURL + x + postURL
         url_list.append(x)
-    url_list = list(set(url_list))
+    #url_list = list(set(url_list))
+    url_list = unique(url_list)
+    print(url_list)
     return url_list
 
 
@@ -42,15 +50,20 @@ def get_URL_list(url):
 def get_movie_title_list(url):
     response = requests.get(url).text
     soup = BeautifulSoup(response, 'lxml')  
-    text = [link.text for link in soup.find_all('a', attrs={'href': re.compile("^\/title")})]
-     
-    for x in text:
+    title_list = [link.text for link in soup.find_all('a', attrs={'href': re.compile("^\/title")})]
+    
+    for x in title_list:
         if(x==' \n'):
-            text.remove(' \n')
+            title_list.remove(' \n')
+    for x in title_list:      
+        if(x=='See full summary'):
+            title_list.remove('See full summary')
+    print(title_list)
         
             
     #print(text)
-    return text
+    return title_list
+
 
 #URL OF TOP TAMIL MOVIES LIST
 movie_list_2015_url = 'https://www.imdb.com/list/ls031392332/'
@@ -67,6 +80,7 @@ movie_list_2021_url = 'https://www.imdb.com/list/ls084663427/'
 # movie_urls = []
 # movie_urls = [get_URL_list(u) for u in movie_urls]
 # movie_titles = [get_movie_title_list(u) for u in movie_urls]
+
 
 #GETTING EACH YEARS DETAILS IN THE FORM OF A LIST
 print("**2015 MOVIES**")
@@ -99,20 +113,12 @@ u7 = get_URL_list(movie_list_2021_url)
 t7 = get_movie_title_list(movie_list_2021_url)
 
 
-all_movie_titles = []
-all_movie_links = []
-all_movie_titles = t1 + t2 + t3 + t4 + t5 + t6 + t7
-all_movie_links = u1 + u2 + u3 + u4 + u5 + u6 + u7
-print(all_movie_titles)
-print(all_movie_links)
-
 alc_content_movie = []
 for x in all_movie_links:
     
     alc_content_movie.append(url_alc_imdb(x))
 
 print(alc_content_movie)
-
 
 import pandas as pd
 
@@ -128,9 +134,4 @@ df3 = df3.reset_index()
 df = [df1, df2, df3]
 
 df_final = pd.concat(df, axis=1)
-df_final.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\movies_datasets.csv', index=False)
-
-
-
-
-
+df_final.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\moviesdataset.csv', index=False)
