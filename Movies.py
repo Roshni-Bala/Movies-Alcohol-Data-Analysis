@@ -47,6 +47,40 @@ def get_movie_title_list(url):
 
     print(text)  
     
-movie_list_2015_url = "https://www.imdb.com/list/ls076765584/"
+#URL OF TOP TAMIL MOVIES LIST
+movie_list_2015_url = 'https://www.imdb.com/list/ls031392332/'
+movie_list_2016_url = 'https://www.imdb.com/list/ls064266039/'
+movie_list_2017_url = 'https://www.imdb.com/list/ls069242710/'
+movie_list_2018_url = 'https://www.imdb.com/list/ls045861940/'
+movie_list_2019_url = 'https://www.imdb.com/list/ls041663030/'
+movie_list_2020_url = 'https://www.imdb.com/list/ls097124558/'
+movie_list_2021_url = 'https://www.imdb.com/list/ls084663427/'
+
+#GETTING EACH YEARS DETAILS IN THE FORM OF A LIST
+print("**2015 MOVIES**")
 get_URL_list(movie_list_2015_url)
 get_movie_title_list(movie_list_2015_url)
+
+print("**2016 MOVIES**")
+get_URL_list(movie_list_2016_url)
+get_movie_title_list(movie_list_2016_url)
+
+print("**2017 MOVIES**")
+get_URL_list(movie_list_2017_url)
+get_movie_title_list(movie_list_2017_url)
+
+print("**2018 MOVIES**")
+get_URL_list(movie_list_2018_url)
+get_movie_title_list(movie_list_2018_url)
+
+print("**2019 MOVIES**")
+get_URL_list(movie_list_2019_url)
+get_movie_title_list(movie_list_2019_url)
+
+print("**2020 MOVIES**")
+get_URL_list(movie_list_2020_url)
+get_movie_title_list(movie_list_2020_url)
+
+print("**2021 MOVIES**")
+get_URL_list(movie_list_2021_url)
+get_movie_title_list(movie_list_2021_url)
