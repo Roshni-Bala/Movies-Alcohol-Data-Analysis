@@ -63,8 +63,6 @@ def get_movie_title_list(url):
             
     #print(text)
     return title_list
-
-
 #URL OF TOP TAMIL MOVIES LIST
 movie_list_2015_url = 'https://www.imdb.com/list/ls031392332/'
 movie_list_2016_url = 'https://www.imdb.com/list/ls064266039/'
@@ -112,6 +110,14 @@ print("**2021 MOVIES**")
 u7 = get_URL_list(movie_list_2021_url)
 t7 = get_movie_title_list(movie_list_2021_url)
 
+all_movie_titles = []
+all_movie_links = []
+all_movie_titles = t1 + t2 + t3 + t4 + t5 + t6 + t7
+all_movie_links = u1 + u2 + u3 + u4 + u5 + u6 + u7
+# all_movie_titles.remove('Server Sundaram')
+# all_movie_links.remove('https://www.imdb.com/title/tt7087984/parentalguide')
+print(all_movie_titles)
+print(all_movie_links)
 
 alc_content_movie = []
 for x in all_movie_links:
@@ -128,10 +134,7 @@ df1 = pd.DataFrame({'Movie Name':all_movie_titles})
 df2 = pd.DataFrame({'IMDB Link':all_movie_links})
 df3 = pd.DataFrame({'Alcoholism Displayed':alc_content_movie})
 
-df1 = df1.reset_index()
-df2 = df2.reset_index()
-df3 = df3.reset_index()
 df = [df1, df2, df3]
 
 df_final = pd.concat(df, axis=1)
-df_final.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\moviesdataset.csv', index=False)
+df_final.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\moviesdataset2015.csv', index=False)
