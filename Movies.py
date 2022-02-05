@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# # Do Tamil Movies have an impact on the alcoholism and substance usage in Tamil Nadu?
+
+# ### Functions for web scraping from IMDB using URLs
+
+# In[54]:
+
+
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -79,6 +89,13 @@ movie_list_2021_url = 'https://www.imdb.com/list/ls084663427/'
 # movie_urls = []
 # movie_urls = [get_URL_list(u) for u in movie_urls]
 # movie_titles = [get_movie_title_list(u) for u in movie_urls]
+
+
+# ### Top Tamil Movies list for each year from IMDB
+
+# In[39]:
+
+
 #GETTING EACH YEARS DETAILS IN THE FORM OF A LIST
 print("**2015 MOVIES**")
 u1 = get_URL_list(movie_list_2015_url)
@@ -109,6 +126,12 @@ print("**2021 MOVIES**")
 u7 = get_URL_list(movie_list_2021_url)
 t7 = get_movie_title_list(movie_list_2021_url)
 
+
+# ### Concatenating the lists of URLs and Movie Titles
+
+# In[40]:
+
+
 all_movie_titles = []
 all_movie_links = []
 all_movie_titles = t1 + t2 + t3 + t4 + t5 + t6 + t7
@@ -117,10 +140,23 @@ all_movie_links = u1 + u2 + u3 + u4 + u5 + u6 + u7
 # all_movie_links.remove('https://www.imdb.com/title/tt7087984/parentalguide')
 print(all_movie_titles)
 print(all_movie_links)
+
+
+# ### Finding the alcohol content display severity by calling the url_alc_imdb(url) function
+
+# In[41]:
+
+
 alc_content_movie = []
 for x in all_movie_links:
     alc_content_movie.append(url_alc_imdb(x))
 print(alc_content_movie)
+
+
+# ### Creating dataframes and saving to CSV file locally
+
+# In[42]:
+
 
 import pandas as pd
 
@@ -135,6 +171,10 @@ df = [df1, df2, df3]
 df_final = pd.concat(df, axis=1)
 df_final.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\movies_alc.csv', index=False)
 
+
+# In[45]:
+
+
 (pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\movies_alc.csv'))
 one = df_final[df_final['Alcoholism Displayed'] == 'Severe'].count()
 two = df_final[df_final['Alcoholism Displayed'] == 'Moderate'].count()
@@ -146,6 +186,11 @@ print(three)
 print(four)
 
 
+# ### Mapping each movie to the year of release
+
+# In[46]:
+
+
 from itertools import repeat
 def mov_year(url, year):
     url_c = len(url)
@@ -155,6 +200,12 @@ def mov_year(url, year):
     return (movie_year)
 movie_years_list = mov_year(u1, '2015') + mov_year(u2, '2016') + mov_year(u3, '2017')+ mov_year(u4, '2018') + mov_year(u5, '2019') + mov_year(u6, '2020') + mov_year(u7, '2021')
 print(movie_years_list)
+
+
+# ### Creating the final dataset after creating and cleaning
+
+# In[47]:
+
 
 import pandas as pd
 
@@ -171,7 +222,16 @@ df_final = pd.concat(df, axis=1)
 df_final.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\movies_alc.csv', index=False)
 
 
+# In[48]:
+
+
 (pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\movies_alc.csv'))
+
+
+# ### Webscrape the alcohol revenue in Tamil Nadu to find out how much is consumed<br><br>Fetched from wikipedia
+
+# In[49]:
+
 
 import requests
 from bs4 import BeautifulSoup
@@ -202,6 +262,13 @@ def getTable(url):
 
 getTable(url)
 
+
+# ### Appending the data to CSV
+# 
+
+# In[72]:
+
+
 #manually inserting 2019-2020 and 2020-2021 from
 #https://www.business-standard.com/article/economy-policy/tamil-nadu-earned-rs-33-811-crore-revenue-from-liquor-sales-121090700965_1.html
 new_data = {
@@ -212,6 +279,12 @@ new_data = {
 df = pd.DataFrame(new_data)
 df.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\alc_tn.csv', mode='a', index=False, header=False)
 print("Data appended successfully.")
+
+
+# ### Data Cleaning
+
+# In[73]:
+
 
 df = pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\alc_tn.csv')
 def year_modify(x):
@@ -224,9 +297,18 @@ def year_modify(x):
 
 df['Fiscal Year'] = df['Fiscal Year'].apply(year_modify)
 
+
+# In[75]:
+
+
 df.head()
 df.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\alc_tn_dataset.csv')
 pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\alc_tn_dataset.csv')
+
+
+# In[159]:
+
+
 import pandas as pd
 import numpy as np
 import numpy as np
@@ -239,6 +321,9 @@ g2 = pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movi
 print('New dataframes created')
 
 
+# In[160]:
+
+
 #only require 2015 onwards for alcohol data
 #new dataframe with 2015-2021 alchol data
 g2 = g2.iloc[12:]
@@ -246,6 +331,13 @@ print(g2)
 #remove unrated movies
 g1 = (g1[g1['Alcoholism Displayed'] != 'Unrated'])
 g1.head()
+
+
+# ### Creating values for each severity value
+# ### <u>List:</u><br>Severe: 3<br>Moderate: 2<br>Mild: 1<br>None: 0
+
+# In[161]:
+
 
 alc_score = []
 for x in g1['Alcoholism Displayed']:
@@ -264,14 +356,30 @@ print(alc_score)
 g1['Alcohol_Rating']=alc_score
 (g1.head())
 
+
+# # VISUALIZATIONS
+# 
+
+# In[162]:
+
+
 plt.figure(figsize=[9,9])
 g1['Alcoholism Displayed'].value_counts().plot.pie()
 plt.title("2015-2021 ALCOHOL AND SUBSTANCES DISPLAYED ON MOVIES")
 plt.ylabel('')
 plt.show()
 
+
+# In[163]:
+
+
 g1_mean = g1.groupby(['Year of Release']).mean()
 print(g1_mean)
+
+
+# In[164]:
+
+
 plt.figure(figsize=[10,3])
 #g1_mean['Alcohol_Rating'].value_counts().plot.barh()
 plt.bar(g1_mean.index,g1_mean['Alcohol_Rating'])
@@ -279,11 +387,20 @@ plt.xlabel('Year of Release')
 plt.ylabel('Severity')
 plt.title("Display of Alc and Substances over the Years")
 plt.show()
+
+
+# In[165]:
+
+
 #Converting the data type of Revenue to float
 g2 = g2.replace(',','', regex=True)
 g2['Revenue in Crores'] = g2['Revenue in Crores'].astype(float)
 print(g2.head())
 g2.dtypes
+
+
+# In[166]:
+
 
 plt.figure(figsize=[10,5])
 plt.plot(g2['Fiscal Year'], g2['Revenue in Crores'])
@@ -293,4 +410,65 @@ plt.title('Revenue collected in Tamil Nadu for Alcohol from 2015-2021')
 plt.show()
 
 
+# In[167]:
 
+
+plt.figure(figsize=[10,5])
+plt.plot(g1_mean.index, g1_mean['Alcohol_Rating'])
+plt.xlabel('Year')
+plt.ylabel('Alcohol_Rating')
+plt.title('Revenue collected in Tamil Nadu for Alcohol from 2015-2021')
+plt.show()
+
+# plt.figure(figsize=[10,3])
+# #g1_mean['Alcohol_Rating'].value_counts().plot.barh()
+# plt.bar(g1_mean.index,g1_mean['Alcohol_Rating'])
+# plt.xlabel('Year of Release')
+# plt.ylabel('Severity')
+# plt.title("Display of Alc and Substances over the Years")
+# plt.show()
+
+
+# ### Creating a new data frame to join the data with common year values
+
+# In[155]:
+
+
+new_df_year = g1_mean
+
+
+# In[171]:
+
+
+rev_year = []
+rev_mon = []
+for x in g2['Fiscal Year']:
+    rev_year.append(x)
+for x in g2['Revenue in Crores']:
+    rev_mon.append(x)
+new_df_year['Year'] = rev_year
+new_df_year['Revenue'] = rev_mon
+print(new_df_year)
+g1['Alcohol_Rating']=alc_score
+
+
+# In[218]:
+
+
+plt.rcParams["figure.figsize"] = (12,4)
+ax = new_df_year.plot(kind = 'line', x = 'Year',y = 'Alcohol_Rating', color = 'Blue',linewidth = 2)
+ 
+ax2 = new_df_year.plot(kind = 'line', x = 'Year',y = 'Revenue', secondary_y = True, color = 'Red',  linewidth = 2,ax = ax)
+
+
+plt.title("Comparison")
+ax.set_xlabel('Year')
+ax.set_ylabel('Movies Displaying Alcohol and Substances', color = "b")
+ax2.set_ylabel('Alcohol Consumed - Revenue (Rs)', color = 'r')
+ 
+
+plt.show()
+
+
+# 
+# # <br><span style="color:green">We can conclude that in the past ten year when the top Tamil movies have a surge in displaying alcohol and substances content, the purchasing of alcohol (in turn the consumption) is reduce.<br><br>We notice this in 2016 when there is an all time low in revenue of alcohol and an all time high in displaying alcohol in Tamil movies. Similarly, we note the opposite effect in 2020. </span>
