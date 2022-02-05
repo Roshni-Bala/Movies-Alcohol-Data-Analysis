@@ -126,15 +126,28 @@ for x in all_movie_links:
 
 print(alc_content_movie)
 
+
+from itertools import repeat
+def mov_year(url, year):
+    url_c = len(url)
+    #print(url_c)
+    movie_year = []
+    movie_year.extend(repeat(year,url_c))
+    return (movie_year)
+movie_years_list = mov_year(u1, '2015') + mov_year(u2, '2016') + mov_year(u3, '2017')+ mov_year(u4, '2018') + mov_year(u5, '2019') + mov_year(u6, '2020') + mov_year(u7, '2021')
+print(movie_years_list)
+
+
 import pandas as pd
 
 
-dict = {'Movie Name':all_movie_titles, 'IMDB Link':all_movie_links, 'Alcoholism Displayed':alc_content_movie}
+dict = {'Movie Name':all_movie_titles, 'IMDB Link':all_movie_links, 'Alcoholism Displayed':alc_content_movie, 'Year of Release':movie_years_list}
 df1 = pd.DataFrame({'Movie Name':all_movie_titles})
 df2 = pd.DataFrame({'IMDB Link':all_movie_links})
 df3 = pd.DataFrame({'Alcoholism Displayed':alc_content_movie})
+df4 = pd.DataFrame({'Year of Release': movie_years_list})
 
-df = [df1, df2, df3]
+df = [df1, df2, df3, df4]
 
 df_final = pd.concat(df, axis=1)
-df_final.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\moviesdataset2015.csv', index=False)
+df_final.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\movies_alc_dataset.csv', index=False)
