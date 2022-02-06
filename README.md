@@ -13,12 +13,10 @@ Does showing consumption of alcohol in Tamil Movies have an affect on the popula
 ## Tools used:
 1. Python(Jupyter Notebook)
 2. Libraries:
-<ul>
-  <li>Pandas</li>
-  <li>BeautifulSoup</li>
-  <li>Matplotlib</li>
-  <li>Re</li>
- </ul>
+    a. Pandas
+    b. BeautifulSoup
+    c. Matplotlib
+    d. Re
 
 ## Result :
 Alcohol consumption and Displaying alcohol in movies are inversely proportional. 
