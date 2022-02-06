@@ -538,7 +538,7 @@ new_df_year = new_df_year.head(6)
 print(new_df_year)
 
 
-# In[129]:
+# In[190]:
 
 
 plt.rcParams["figure.figsize"] = (12,4)
@@ -550,12 +550,12 @@ ax2 = new_df_year.plot(kind = 'line', x = 'Year',y = 'Crime', secondary_y = True
 plt.title("Comparison of Crime Rate and Movie Alcohol Displayed")
 ax.set_xlabel('Year')
 ax.set_ylabel('Movies Displaying Alcohol and Substances', color = "b")
-ax2.set_ylabel('Crime Rate', color = 'r')
+ax2.set_ylabel('Crime', color = 'r')
 plt.savefig("result2.jpg")
 plt.show()
 
 
-# In[131]:
+# In[189]:
 
 
 new_df_tail = new_df_year_crime.tail()
@@ -568,26 +568,111 @@ ax2 = new_df_tail.plot(kind = 'line', x = 'Year',y = 'Crime', secondary_y = True
 plt.title("Comparison of Alcohol Revenue and Crime Rates in Tamil Nadu")
 ax.set_xlabel('Year')
 ax.set_ylabel('Revenue', color = "g")
-ax2.set_ylabel('Crime Rate', color = 'b')
+ax2.set_ylabel('Crime', color = 'b')
 plt.savefig("result3.jpg")
 plt.show()
 
 
-# In[ ]:
+# In[140]:
 
 
+import requests
+from bs4 import BeautifulSoup
+import re
+import string
+import numpy as np
+
+def url_violence_imdb(url):
+    page = requests.get(url).text
+    soup = BeautifulSoup(page, "lxml")
+    text = [p.text for p in soup.find('section', id = "advisory-violence")]
+    req = text[3]
+    req = re.sub('\[.*?\]', '', req)
+    req = re.sub('[%s]' % re.escape(string.punctuation), '', req)
+    req = re.sub('\s+', ' ', req)
+    alc_cont = ''
+    alc_cont = req.split(' ').pop(1)
+    if(alc_cont == 'Be'):
+        alc_cont = 'Unrated'
+    
+    #print(alc_cont)
+    return alc_cont
+    #return text
+#url_violence_imdb('https://www.imdb.com/title/tt3973410/parentalguide')
+crime_list = []
+df1_link = pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\movies_alc.csv')
+for x in df1_link['IMDB Link']:
+    y = url_violence_imdb(x)
+    crime_list.append(y)
+print(crime_list)
 
 
-
-# 
-# ## <br><span style="color:green"><b>RESULT:</b><br>We can conclude that in the past ten year when the top Tamil movies have a surge in displaying alcohol and substances content, the purchasing of alcohol (in turn the consumption) is reduced.<br><br>We notice this in 2016 when there is an all time low in revenue of alcohol and an all time high in displaying alcohol in Tamil movies. Similarly, we note the opposite effect in 2020. It is also clear that endorsing such activities could also lead to increased crime rates. However, we cannot make clear observations from the crime rate and alcoholism in Tamil Nadu. </span>
-# 
-# ### <b>NOTE:</b><br>There are several factors to be considered such as laws, economy, tourism which have been ignored for the project. I have only scraped data for the alcohol revenue in Tamil Nadu and IMDB rating for Alcohol, Smoking and Substance abuse.<br>This project only takes into account a very small dataset. Clear results can only be seen upon taking into account larger datasets and then analyzing. 
-# 
-# ### This project has been created to understand <br> <ul><li>Web Scraping via BeautifulSoup</li><li>Pandas</li><li>Matplotlib</li></ul>
-
-# In[ ]:
+# In[144]:
 
 
+df1_link['Violence'] = crime_list
+violence_score = []
+for x in df1_link['Violence']:
+    if(x == 'None'):
+        violence_score.append(0)
+    elif(x == 'Mild'):
+        violence_score.append(1)
+    elif(x == 'Moderate'):
+        violence_score.append(2)
+    elif(x== 'Severe'):
+        violence_score.append(3)
+    else:
+        violence_score.append(0)
+        
+df1_link['Violence Rate']=violence_score
+df1_link.head(150)
 
 
+# In[156]:
+
+
+df_viol_mean = df1_link.groupby(['Year of Release']).mean()
+print(df_viol_mean.head(10))
+
+plt.figure(figsize=[10,5])
+plt.plot(df_viol_mean.index, df_viol_mean['Violence Rate'],color = 'Green')
+plt.xlabel('Year')
+plt.ylabel('Violence Rate')
+plt.title('Violence in Movies from 2015-2021: Line Graph')
+plt.show()
+
+
+# In[179]:
+
+
+violence_rate_list = []
+for x in df_viol_mean['Violence Rate']:
+    violence_rate_list.append(x)
+#print(new_df_tail.head(10))
+#print(df_viol_mean.head(10))
+
+df_viol_up = df_viol_mean.head(6)
+df_viol_up = df_viol_up.tail(5)
+# print(df_viol_up)
+# print(violence_rate_list)
+violence_rate_list_fin = violence_rate_list[1:-1]
+print(violence_rate_list_fin)
+df_viol_up['Movie Violence'] = violence_rate_list_fin
+
+
+df_tot = new_df_tail 
+df_tot['Movie Violence'] = violence_rate_list_fin
+print(df_tot.head())
+
+plt.rcParams["figure.figsize"] = (12,4)
+ax = df_tot.plot(kind = 'line', x = 'Year',y = 'Movie Violence',  linestyle='dashed', marker='o',color = 'Green',linewidth = 3)
+ 
+ax2 = df_tot.plot(kind = 'line', x = 'Year',y = 'Crime', secondary_y = True,  linestyle='dashed', marker='o', color = 'Blue',  linewidth = 3,ax = ax)
+
+
+plt.title("Comparison between Violence in Movies and Crime Rates in TN")
+ax.set_xlabel('Year')
+ax.set_ylabel('Movie Violence Rating', color = "g")
+ax2.set_ylabel('Crime', color = 'b')
+plt.savefig("result4.jpg")
+plt.show()
