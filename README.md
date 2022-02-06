@@ -2,8 +2,12 @@
 
 ## Question:
 Does showing consumption of alcohol in Tamil Movies have an affect on the population of Tamil Nadu?
-
-## Steps:
+## Processes:
+1. Data Collection via Webscraping
+2. Data cleaning
+3. Data analyzing 
+4. Data visualizations
+## Process Expanded:
 1. Collect data about movies from IMDB (2015-2021)
 2. Collect data about Alcohol from Wikipedia (2015-2021)
 3. Clean datasets
