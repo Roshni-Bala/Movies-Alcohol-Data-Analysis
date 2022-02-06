@@ -33,4 +33,4 @@ It is evident from the visualizations that in 2016, when there is an all time lo
 ### NOTE:
 There are several factors to be considered such as laws, economy, tourism which have been ignored for the project. I have only scraped data for the alcohol revenue in Tamil Nadu and IMDB rating for Alcohol, Smoking and Substance abuse. 
 
-This project has been created to understand <br> <ul><li>Web Scraping via BeautifulSoup</li><li>Pandas</li><li>Matplotlib</li></ul>
+This project has been created only for personal understanding of the following <br> <ul><li>Web Scraping via BeautifulSoup</li><li>Pandas</li><li>Matplotlib</li></ul>
