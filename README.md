@@ -19,6 +19,8 @@ Does showing consumption of alcohol in Tamil Movies have an affect on the popula
     d. Re
 
 ## Result :
+![result1](https://user-images.githubusercontent.com/54448939/152670643-0c555753-0a68-48ef-8407-2338451df82c.png)
+<br>
 Alcohol consumption and Displaying alcohol in movies are inversely proportional. 
 We can conclude that in the past few years when the top Tamil movies have a surge in displaying alcohol and substances content, the purchasing of alcohol (in turn the consumption) is reduced.
 It is evident from the visualizations that in 2016, when there is an all time low in revenue of alcohol, there was an all time high in displaying alcohol in Tamil movies. Similarly, we note the opposite effect in 2020.
