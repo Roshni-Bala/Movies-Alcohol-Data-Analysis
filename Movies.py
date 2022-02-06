@@ -230,7 +230,7 @@ df_final.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movie
 
 # ### Webscrape the alcohol revenue in Tamil Nadu to find out how much is consumed<br><br>Fetched from wikipedia
 
-# In[49]:
+# In[32]:
 
 
 import requests
@@ -261,6 +261,64 @@ def getTable(url):
     return df
 
 getTable(url)
+
+
+# In[74]:
+
+
+
+dict_crime = {'2016':467369, '2017':420876, '2018':499188, '2019':455094
+    
+}
+
+
+import requests
+from bs4 import BeautifulSoup
+import re
+import string
+import numpy as np
+import pandas as pd
+url = 'https://en.wikipedia.org/wiki/Crime_in_India'
+page = requests.get(url).text
+soup = BeautifulSoup(page, "lxml")
+
+def get1Table(url):
+    rows = []
+    for child in soup.find_all('tbody')[1].children:
+        row = []
+        for td in child:
+            try:
+                row.append(td.text.replace('\n', ''))
+            except:
+                continue
+        if len(row) > 0:
+            rows.append(row)
+
+    df = pd.DataFrame(rows[1:], columns=rows[0])
+    return df
+
+df1 = get1Table(url)
+df2 = (df1[df1['State/UT'] == 'Tamil Nadu'])
+df_crime = df2.T 
+print(df_crime)
+#df3 = df2['2016', '2017', '2018', '2019']
+#print(df3)
+df2.head(5)
+
+
+# In[77]:
+
+
+df_crime.to_csv(r'crime_tn.csv', index=False)
+
+
+# In[97]:
+
+
+#transposing and displaying + adding data for missing years from govt portals
+pd.read_csv(r'crime_tn.csv')
+df_crime =pd.read_csv(r'crime_tn.csv')
+df_crime.head(7)
 
 
 # ### Appending the data to CSV
@@ -306,7 +364,7 @@ df.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\alc_
 pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\alc_tn_dataset.csv')
 
 
-# In[16]:
+# In[82]:
 
 
 import pandas as pd
@@ -318,7 +376,7 @@ g2 = pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movi
 print('New dataframes created')
 
 
-# In[17]:
+# In[83]:
 
 
 #only require 2015 onwards for alcohol data
@@ -332,7 +390,7 @@ g1.head()
 
 # ### Creating values for each severity value<br><u>List:</u><ol><li>Severe: 3</li><li>Moderate: 2</li><li>Mild: 1</li><li>None: 0</li></ol>
 
-# In[18]:
+# In[84]:
 
 
 alc_score = []
@@ -356,7 +414,7 @@ g1['Alcohol_Rating']=alc_score
 # # VISUALIZATIONS
 # 
 
-# In[19]:
+# In[85]:
 
 
 plt.figure(figsize=[9,9])
@@ -366,14 +424,14 @@ plt.ylabel('')
 plt.show()
 
 
-# In[20]:
+# In[86]:
 
 
 g1_mean = g1.groupby(['Year of Release']).mean()
 print(g1_mean)
 
 
-# In[21]:
+# In[87]:
 
 
 plt.figure(figsize=[10,3])
@@ -385,7 +443,7 @@ plt.title("Display of Alc and Substances over the Years")
 plt.show()
 
 
-# In[22]:
+# In[88]:
 
 
 #Converting the data type of Revenue to float
@@ -395,7 +453,7 @@ print(g2.head())
 g2.dtypes
 
 
-# In[23]:
+# In[89]:
 
 
 plt.figure(figsize=[10,5])
@@ -406,7 +464,7 @@ plt.title('Revenue collected in Tamil Nadu for Alcohol from 2015-2021')
 plt.show()
 
 
-# In[24]:
+# In[90]:
 
 
 plt.figure(figsize=[10,5])
@@ -427,13 +485,13 @@ plt.show()
 
 # ### Creating a new data frame to join the data with common year values
 
-# In[25]:
+# In[115]:
 
 
 new_df_year = g1_mean
 
 
-# In[26]:
+# In[116]:
 
 
 rev_year = []
@@ -448,7 +506,7 @@ print(new_df_year)
 g1['Alcohol_Rating']=alc_score
 
 
-# In[30]:
+# In[117]:
 
 
 plt.rcParams["figure.figsize"] = (12,4)
@@ -466,12 +524,67 @@ plt.savefig("result1.jpg")
 plt.show()
 
 
+# In[118]:
+
+
+#df_crime.head()
+crime_list = []
+for x in df_crime['Crime']:
+    crime_list.append(x)
+
+new_df_year['Crime'] = crime_list
+new_df_year = new_df_year.head(6)
+
+print(new_df_year)
+
+
+# In[129]:
+
+
+plt.rcParams["figure.figsize"] = (12,4)
+ax = new_df_year.plot(kind = 'line', x = 'Year',y = 'Alcohol_Rating', color = 'Blue',linewidth = 2)
+ 
+ax2 = new_df_year.plot(kind = 'line', x = 'Year',y = 'Crime', secondary_y = True, color = 'Red',  linewidth = 2,ax = ax)
+
+
+plt.title("Comparison of Crime Rate and Movie Alcohol Displayed")
+ax.set_xlabel('Year')
+ax.set_ylabel('Movies Displaying Alcohol and Substances', color = "b")
+ax2.set_ylabel('Crime Rate', color = 'r')
+plt.savefig("result2.jpg")
+plt.show()
+
+
+# In[131]:
+
+
+new_df_tail = new_df_year_crime.tail()
+plt.rcParams["figure.figsize"] = (12,4)
+ax = new_df_tail.plot(kind = 'line', x = 'Year',y = 'Revenue',  linestyle='dashed', marker='o',color = 'Green',linewidth = 2)
+ 
+ax2 = new_df_tail.plot(kind = 'line', x = 'Year',y = 'Crime', secondary_y = True, color = 'Blue',  linewidth = 2,ax = ax)
+
+
+plt.title("Comparison of Alcohol Revenue and Crime Rates in Tamil Nadu")
+ax.set_xlabel('Year')
+ax.set_ylabel('Revenue', color = "g")
+ax2.set_ylabel('Crime Rate', color = 'b')
+plt.savefig("result3.jpg")
+plt.show()
+
+
+# In[ ]:
+
+
+
+
+
 # 
-# ## <br><span style="color:green"><b>RESULT:</b><br>We can conclude that in the past ten year when the top Tamil movies have a surge in displaying alcohol and substances content, the purchasing of alcohol (in turn the consumption) is reduced.<br><br>We notice this in 2016 when there is an all time low in revenue of alcohol and an all time high in displaying alcohol in Tamil movies. Similarly, we note the opposite effect in 2020. </span>
+# ## <br><span style="color:green"><b>RESULT:</b><br>We can conclude that in the past ten year when the top Tamil movies have a surge in displaying alcohol and substances content, the purchasing of alcohol (in turn the consumption) is reduced.<br><br>We notice this in 2016 when there is an all time low in revenue of alcohol and an all time high in displaying alcohol in Tamil movies. Similarly, we note the opposite effect in 2020. It is also clear that endorsing such activities could also lead to increased crime rates. However, we cannot make clear observations from the crime rate and alcoholism in Tamil Nadu. </span>
 # 
-# ## <b>NOTE:</b><br>There are several factors to be considered such as laws, economy, tourism which have been ignored for the project. I have only scraped data for the alcohol revenue in Tamil Nadu and IMDB rating for Alcohol, Smoking and Substance abuse. 
+# ### <b>NOTE:</b><br>There are several factors to be considered such as laws, economy, tourism which have been ignored for the project. I have only scraped data for the alcohol revenue in Tamil Nadu and IMDB rating for Alcohol, Smoking and Substance abuse.<br>This project only takes into account a very small dataset. Clear results can only be seen upon taking into account larger datasets and then analyzing. 
 # 
-# ## This project has been created to understand <br> <ul><li>Web Scraping via BeautifulSoup</li><li>Pandas</li><li>Matplotlib</li></ul>
+# ### This project has been created to understand <br> <ul><li>Web Scraping via BeautifulSoup</li><li>Pandas</li><li>Matplotlib</li></ul>
 
 # In[ ]:
 
