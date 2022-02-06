@@ -283,7 +283,7 @@ print("Data appended successfully.")
 
 # ### Data Cleaning
 
-# In[73]:
+# In[14]:
 
 
 df = pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\alc_tn.csv')
@@ -298,7 +298,7 @@ def year_modify(x):
 df['Fiscal Year'] = df['Fiscal Year'].apply(year_modify)
 
 
-# In[75]:
+# In[15]:
 
 
 df.head()
@@ -306,22 +306,19 @@ df.to_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\alc_
 pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\alc_tn_dataset.csv')
 
 
-# In[159]:
+# In[16]:
 
 
 import pandas as pd
 import numpy as np
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 g1 = pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\movies_alc.csv')
 g2 = pd.read_csv(r'C:\Users\Roshni\OneDrive\Desktop\Roshni\Projects\Alcohol-Movies\alc_tn_dataset.csv')
 print('New dataframes created')
 
 
-# In[160]:
+# In[17]:
 
 
 #only require 2015 onwards for alcohol data
@@ -333,10 +330,9 @@ g1 = (g1[g1['Alcoholism Displayed'] != 'Unrated'])
 g1.head()
 
 
-# ### Creating values for each severity value
-# ### <u>List:</u><br>Severe: 3<br>Moderate: 2<br>Mild: 1<br>None: 0
+# ### Creating values for each severity value<br><u>List:</u><ol><li>Severe: 3</li><li>Moderate: 2</li><li>Mild: 1</li><li>None: 0</li></ol>
 
-# In[161]:
+# In[18]:
 
 
 alc_score = []
@@ -360,7 +356,7 @@ g1['Alcohol_Rating']=alc_score
 # # VISUALIZATIONS
 # 
 
-# In[162]:
+# In[19]:
 
 
 plt.figure(figsize=[9,9])
@@ -370,14 +366,14 @@ plt.ylabel('')
 plt.show()
 
 
-# In[163]:
+# In[20]:
 
 
 g1_mean = g1.groupby(['Year of Release']).mean()
 print(g1_mean)
 
 
-# In[164]:
+# In[21]:
 
 
 plt.figure(figsize=[10,3])
@@ -389,7 +385,7 @@ plt.title("Display of Alc and Substances over the Years")
 plt.show()
 
 
-# In[165]:
+# In[22]:
 
 
 #Converting the data type of Revenue to float
@@ -399,7 +395,7 @@ print(g2.head())
 g2.dtypes
 
 
-# In[166]:
+# In[23]:
 
 
 plt.figure(figsize=[10,5])
@@ -410,14 +406,14 @@ plt.title('Revenue collected in Tamil Nadu for Alcohol from 2015-2021')
 plt.show()
 
 
-# In[167]:
+# In[24]:
 
 
 plt.figure(figsize=[10,5])
 plt.plot(g1_mean.index, g1_mean['Alcohol_Rating'])
 plt.xlabel('Year')
 plt.ylabel('Alcohol_Rating')
-plt.title('Revenue collected in Tamil Nadu for Alcohol from 2015-2021')
+plt.title('Substances displayed in Top Tamil Movies from 2015-2021: Line Graph')
 plt.show()
 
 # plt.figure(figsize=[10,3])
@@ -431,13 +427,13 @@ plt.show()
 
 # ### Creating a new data frame to join the data with common year values
 
-# In[155]:
+# In[25]:
 
 
 new_df_year = g1_mean
 
 
-# In[171]:
+# In[26]:
 
 
 rev_year = []
@@ -452,7 +448,7 @@ print(new_df_year)
 g1['Alcohol_Rating']=alc_score
 
 
-# In[218]:
+# In[30]:
 
 
 plt.rcParams["figure.figsize"] = (12,4)
@@ -466,9 +462,19 @@ ax.set_xlabel('Year')
 ax.set_ylabel('Movies Displaying Alcohol and Substances', color = "b")
 ax2.set_ylabel('Alcohol Consumed - Revenue (Rs)', color = 'r')
  
-
+plt.savefig("result1.jpg")
 plt.show()
 
 
 # 
-# # <br><span style="color:green">We can conclude that in the past ten year when the top Tamil movies have a surge in displaying alcohol and substances content, the purchasing of alcohol (in turn the consumption) is reduce.<br><br>We notice this in 2016 when there is an all time low in revenue of alcohol and an all time high in displaying alcohol in Tamil movies. Similarly, we note the opposite effect in 2020. </span>
+# ## <br><span style="color:green"><b>RESULT:</b><br>We can conclude that in the past ten year when the top Tamil movies have a surge in displaying alcohol and substances content, the purchasing of alcohol (in turn the consumption) is reduced.<br><br>We notice this in 2016 when there is an all time low in revenue of alcohol and an all time high in displaying alcohol in Tamil movies. Similarly, we note the opposite effect in 2020. </span>
+# 
+# ## <b>NOTE:</b><br>There are several factors to be considered such as laws, economy, tourism which have been ignored for the project. I have only scraped data for the alcohol revenue in Tamil Nadu and IMDB rating for Alcohol, Smoking and Substance abuse. 
+# 
+# ## This project has been created to understand <br> <ul><li>Web Scraping via BeautifulSoup</li><li>Pandas</li><li>Matplotlib</li></ul>
+
+# In[ ]:
+
+
+
+
