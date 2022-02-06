@@ -34,11 +34,6 @@ We see that the two fields being compared on the y-axis have rises and falls on 
 There is an inversely proportional effect being observed between alcohol consumption and display in movies. 
 <br>
 <br>
-
-<br>
-<br>
-<br>
-
 We can conclude that there could be a possibility of influence of the types of movies that are released in Tamil Nadu from real data like Alcohol consumption and crimes committed.
 
 ### NOTE:
