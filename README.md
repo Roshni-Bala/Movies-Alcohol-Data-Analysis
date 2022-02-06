@@ -9,11 +9,11 @@ Does showing consumption of alcohol in Tamil Movies have an affect on the popula
 4. Data visualizations
 ## Process Goals:
 1. Collect data about top Tamil movies from IMDB (2015-2021)
-2. Collect data about Alcohol from Wikipedia (2015-2021)
-3. Collect data about crime rates in Tamil Nadu (2015-2021)
-4. Clean datasets
-5. Join datasets using primary key as year
-6. Form visualizations to understand effect
+3. Collect data about Alcohol from Wikipedia (2015-2021)
+4. Collect data about Crime rates in Tamil Nadu (2015-2021)
+5. Clean datasets
+6. Join datasets using primary key as year
+7. Form visualizations to understand effect
 
 ## Tools used:
 1. Python(Jupyter Notebook)
@@ -24,10 +24,13 @@ Does showing consumption of alcohol in Tamil Movies have an affect on the popula
     d. Re
 
 ## Results :
-![result1](https://user-images.githubusercontent.com/54448939/152670678-800c1038-2f60-4641-a9f4-b157c3b4c064.jpg)
-![result2](https://user-images.githubusercontent.com/54448939/152676819-c0ddc751-fb58-4cbb-8a50-add87a33bc98.jpg)
-![result3](https://user-images.githubusercontent.com/54448939/152676935-2e7182aa-333b-4550-a927-e6d214784762.jpg)
+![result4](https://user-images.githubusercontent.com/54448939/152679294-669ee6d0-7b99-445d-8d50-2ea54d4fd84a.jpg)
+![result1](https://user-images.githubusercontent.com/54448939/152679289-6e09eb16-e2cd-4cd3-b8ef-e4d728fae245.jpg)
+![result2](https://user-images.githubusercontent.com/54448939/152679291-01c5d120-93dc-40b0-96b6-5c8facd7eb53.jpg)
+![result3](https://user-images.githubusercontent.com/54448939/152679292-8974e5e6-5d29-4521-9028-64c48d0c0c0c.jpg)
 
+
+We can conclude that there could be a possibility of influence of the types of movies that are released in Tamil Nadu from real data like Alcohol consumption and crimes committed.
 
 ### NOTE:
 There are several factors to be considered such as new state laws, economy, tourism, pandemic, unrated data which have been ignored for the project. I have only scraped data for the alcohol revenue in Tamil Nadu and IMDB rating for Alcohol, Smoking and Substance abuse. 
