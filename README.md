@@ -25,8 +25,16 @@ Does showing consumption of alcohol in Tamil Movies have an affect on the popula
 
 ## Results :
 ![result4](https://user-images.githubusercontent.com/54448939/152679294-669ee6d0-7b99-445d-8d50-2ea54d4fd84a.jpg)
+With increase in violence displayed in movies, there are higher chances of people being influenced by it and committing violent crimes.
+<br>
+<br>
 ![result1](https://user-images.githubusercontent.com/54448939/152679289-6e09eb16-e2cd-4cd3-b8ef-e4d728fae245.jpg)
+There is an inversely proportional effect being observed between alcohol consumption and display in movies. 
+<br>
+<br>
 ![result2](https://user-images.githubusercontent.com/54448939/152679291-01c5d120-93dc-40b0-96b6-5c8facd7eb53.jpg)
+<br>
+<br>
 ![result3](https://user-images.githubusercontent.com/54448939/152679292-8974e5e6-5d29-4521-9028-64c48d0c0c0c.jpg)
 
 
