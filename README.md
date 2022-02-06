@@ -30,6 +30,6 @@ Does showing consumption of alcohol in Tamil Movies have an affect on the popula
 
 
 ### NOTE:
-There are several factors to be considered such as laws, economy, tourism which have been ignored for the project. I have only scraped data for the alcohol revenue in Tamil Nadu and IMDB rating for Alcohol, Smoking and Substance abuse. 
+There are several factors to be considered such as new state laws, economy, tourism, pandemic, unrated data which have been ignored for the project. I have only scraped data for the alcohol revenue in Tamil Nadu and IMDB rating for Alcohol, Smoking and Substance abuse. 
 
 This project has been created only for personal understanding of the following <br> <ul><li>Web Scraping via BeautifulSoup</li><li>Pandas</li><li>Matplotlib</li></ul>
