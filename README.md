@@ -26,7 +26,8 @@ Does showing consumption of alcohol in Tamil Movies have an affect on the popula
 ## Results :
 ![result1](https://user-images.githubusercontent.com/54448939/152670678-800c1038-2f60-4641-a9f4-b157c3b4c064.jpg)
 ![result2](https://user-images.githubusercontent.com/54448939/152676819-c0ddc751-fb58-4cbb-8a50-add87a33bc98.jpg)
-![result3](https://user-images.githubusercontent.com/54448939/152676822-a4853ab2-41c0-45cb-9178-089a74717d75.jpg)
+![result3](https://user-images.githubusercontent.com/54448939/152676935-2e7182aa-333b-4550-a927-e6d214784762.jpg)
+
 
 ### NOTE:
 There are several factors to be considered such as laws, economy, tourism which have been ignored for the project. I have only scraped data for the alcohol revenue in Tamil Nadu and IMDB rating for Alcohol, Smoking and Substance abuse. 
