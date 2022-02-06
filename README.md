@@ -35,9 +35,7 @@ There is an inversely proportional effect being observed between alcohol consump
 <br>
 <br>
 ![result2](https://user-images.githubusercontent.com/54448939/152679291-01c5d120-93dc-40b0-96b6-5c8facd7eb53.jpg)
-<br>
-<br>
-![result3](https://user-images.githubusercontent.com/54448939/152679292-8974e5e6-5d29-4521-9028-64c48d0c0c0c.jpg)
+
 <br>
 <br>
 <br>
