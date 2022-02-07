@@ -2,11 +2,7 @@
 
 ## Question:
 Does consumption of alcohol and violence in Tamil Movies released in the past 5 years have an affect on the statistics of Tamil Nadu's population? 
-## Processes:
-1. Data collection
-2. Data cleaning
-3. Data analyzing 
-4. Data visualizations
+
 ## Process Goals:
 1. Collect data about top Tamil movies from IMDB (2015-2021)
 2. Collect data about Alcohol from Wikipedia (2015-2021)
@@ -15,7 +11,7 @@ Does consumption of alcohol and violence in Tamil Movies released in the past 5 
 5. Join datasets using primary key as year
 6. Form visualizations to understand effect
 
-### Data collection process
+## Data collection process
 1. Identify top tamil movie lists for each year
 2. Webscrape individual hyperlinks from the movie lists webpage
 3. Webscrape movie details from every hyperlink saved in dataframe
