@@ -3,17 +3,24 @@
 ## Question:
 Does consumption of alcohol and violence in Tamil Movies released in the past 5 years have an affect on the statistics of Tamil Nadu's population? 
 ## Processes:
-1. Data Collection via Webscraping
+1. Data collection
 2. Data cleaning
 3. Data analyzing 
 4. Data visualizations
 ## Process Goals:
 1. Collect data about top Tamil movies from IMDB (2015-2021)
-3. Collect data about Alcohol from Wikipedia (2015-2021)
-4. Collect data about Crime rates in Tamil Nadu (2015-2021)
-5. Clean datasets
-6. Join datasets using primary key as year
-7. Form visualizations to understand effect
+2. Collect data about Alcohol from Wikipedia (2015-2021)
+3. Collect data about Crime rates in Tamil Nadu (2015-2021)
+4. Clean datasets
+5. Join datasets using primary key as year
+6. Form visualizations to understand effect
+
+### Data collection process
+1. Identify top tamil movie lists for each year
+2. Webscrape individual hyperlinks from the movie lists webpage
+3. Webscrape movie details from every hyperlink saved in dataframe
+4. Indentify data source for Alcohol and crime details (Wikipedia)
+5. Webscrape tables from source site
 
 ## Tools used:
 1. Python(Jupyter Notebook)
@@ -21,7 +28,6 @@ Does consumption of alcohol and violence in Tamil Movies released in the past 5 
     a. Pandas
     b. BeautifulSoup
     c. Matplotlib
-    d. Re
 
 ## Results :
 ![result4](https://user-images.githubusercontent.com/54448939/152679294-669ee6d0-7b99-445d-8d50-2ea54d4fd84a.jpg)
